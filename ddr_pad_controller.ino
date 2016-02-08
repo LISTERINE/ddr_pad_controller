@@ -98,142 +98,146 @@ void loop() {
   button13.update();
   button14.update();
   button15.update();
+  
+  /******************************************************
+   *
+   * Determine which pads/sensors were pressed/released
+   *
+   ******************************************************/
 
-  if ((!upPressed_0) || (!upPressed_1) || (!upPressed_2) || (!upPressed_3)) {
-    if (button0.fallingEdge()) {
-      // Check each button for "falling" edge.
-      // Send a key when each button is pressed
+   
+  // Check pad 0
+  if ((!upPressed_0) || (!upPressed_1) || (!upPressed_2) || (!upPressed_3)) { // If no buttons(sensors) are pressed
+    if (button0.fallingEdge()) {                                              // Check if button was pressed, if it was, set this button and this pad as pressed
       upPressed_0 = true;
       pad_0_Fall = true;
     }
-    else if (button0.risingEdge()) {
-      // Check each button for "rising" edge.
-      // Send a key when each button is pressed
-      upPressed_0 = false;
-    }
-    
     if (button1.fallingEdge()) {
       upPressed_1 = true;
       pad_0_Fall = true;
     }
-    else if (button1.risingEdge()) {
-      upPressed_1 = false;
-    }
-    
     if (button2.fallingEdge()) {
       upPressed_2 = true;
       pad_0_Fall = true;
     }
-    else if (button2.risingEdge()) {
-      upPressed_2 = false;
-    }
-    
     if (button3.fallingEdge()) {
       upPressed_3 = true;
       pad_0_Fall = true;
     }
-    else if (button3.risingEdge()) {
+  }
+  else {                                                                       // If there are pressed buttons, check if any have come up
+    if (button0.risingEdge()) {                                          
+      upPressed_0 = false;
+    }
+    if (button1.risingEdge()) {
+      upPressed_1 = false;
+    }
+    if (button2.risingEdge()) {
+      upPressed_2 = false;
+    }
+    if (button3.risingEdge()) {
       upPressed_3 = false;
     }
   }
+
+  // Check pad 1
   if ((!leftPressed_0) || (!leftPressed_1) || (!leftPressed_2) || (!leftPressed_3)) {
     if (button4.fallingEdge()) {
       leftPressed_0 = true;
       pad_1_Fall = true;
     }
-    else if (button4.risingEdge()) {
-      leftPressed_0 = false;
-    }
-    
     if (button5.fallingEdge()) {
       leftPressed_1 = true;
       pad_1_Fall = true;
     }
-    else if (button5.risingEdge()) {
-      leftPressed_1 = false;
-    }
-    
     if (button6.fallingEdge()) {
       leftPressed_2 = true;
       pad_1_Fall = true;
     }
-    else if (button6.risingEdge()) {
-      leftPressed_2 = false;
-    }
-    
     if (button7.fallingEdge()) {
       leftPressed_3 = true;
       pad_1_Fall = true;
+    } 
+  }
+  else {
+    if (button4.risingEdge()) {
+      leftPressed_0 = false;
     }
-    else if (button7.risingEdge()) {
+    if (button5.risingEdge()) {
+      leftPressed_1 = false;
+    }
+    if (button6.risingEdge()) {
+      leftPressed_2 = false;
+    }
+    if (button7.risingEdge()) {
       leftPressed_3 = false;
     }
-    
   }
+
+  // Check pad 2
   if ((!downPressed_0) || (!downPressed_1) || (!downPressed_2) || (!downPressed_3)) {
     if (button8.fallingEdge()) {
       downPressed_0 = true;
       pad_2_Fall = true;
     }
-    else if (button8.risingEdge()) {
-      downPressed_0 = false;
-    }
-    
     if (button9.fallingEdge()) {
       downPressed_1 = true;
       pad_2_Fall = true;
     }
-    else if (button9.risingEdge()) {
-      downPressed_1 = false;
-    }
-    
     if (button10.fallingEdge()) {
       downPressed_2 = true;
       pad_2_Fall = true;
     }
-    else if (button10.risingEdge()) {
-      downPressed_2 = false;
-    }
-    
     if (button11.fallingEdge()) {
       downPressed_3 = true;
       pad_2_Fall = true;
     }
-    else if (button11.risingEdge()) {
+  }
+  else {
+    if (button8.risingEdge()) {
+      downPressed_0 = false;
+    }
+    if (button9.risingEdge()) {
+      downPressed_1 = false;
+    }
+    if (button10.risingEdge()) {
+      downPressed_2 = false;
+    }
+    if (button11.risingEdge()) {
       downPressed_3 = false;
     }
-    
   }
+
+  // Check pad 3
   if ((!rightPressed_0) || (!rightPressed_1) || (!rightPressed_2) || (!rightPressed_3)) {
     if (button12.fallingEdge()) {
       rightPressed_0 = true;
       pad_3_Fall = true;
     }
-    else if (button12.risingEdge()) {
-      downPressed_0 = false;
-    }
-    
     if (button13.fallingEdge()) {
       rightPressed_1 = true;
       pad_3_Fall = true;
     }
-    else if (button13.risingEdge()) {
-      downPressed_1 = false;
-    }
-    
     if (button14.fallingEdge()) {
       rightPressed_2 = true;
       pad_3_Fall = true;
     }
-    else if (button14.risingEdge()) {
-      downPressed_2 = false;
-    }
-    
     if (button15.fallingEdge()) {
       rightPressed_3 = true;
       pad_3_Fall = true;
     }
-    else if (button15.risingEdge()) {
+  }
+  else {
+    if (button12.risingEdge()) {
+      downPressed_0 = false;
+    }
+    if (button13.risingEdge()) {
+      downPressed_1 = false;
+    }
+    if (button14.risingEdge()) {
+      downPressed_2 = false;
+    }
+    if (button15.risingEdge()) {
       downPressed_3 = false;
     }
   }
@@ -242,38 +246,36 @@ void loop() {
   if ((!upPressed_0) && (!upPressed_1) && (!upPressed_2) && (!upPressed_3)) {
     Keyboard.release("w");
   }
-  if ((!leftPressed_0) && (!leftPressed_1) && (!leftPressed_2) && (!leftPressed_3)) {
-    Keyboard.release("w");
-  }
-  if ((!downPressed_0) && (!downPressed_1) && (!downPressed_2) && (!downPressed_3)) {
-    Keyboard.release("w");
-  }
-  if ((!rightPressed_0) && (!rightPressed_1) && (!rightPressed_2) && (!rightPressed_3)) {
-    Keyboard.release("w");
-  }
-
-  // if a pad got a press
-  if (pad_0_Fall) { // if there was a state change in the pad
+  else if (pad_0_Fall) { // if there was a state change in the pad
     if ((upPressed_0) || (upPressed_1) || (upPressed_2) || (upPressed_3)) {
       Keyboard.press("w");
     }
   }
-  if (pad_1_Fall) {
+  if ((!leftPressed_0) && (!leftPressed_1) && (!leftPressed_2) && (!leftPressed_3)) {
+    Keyboard.release("w");
+  }
+  else if (pad_1_Fall) {
     else if ((leftPressed_0) || (leftPressed_1) || (leftPressed_2) || (leftPressed_3)) {
       Keyboard.press("w");
     }
   }
-  if (pad_2_Fall) {
+  if ((!downPressed_0) && (!downPressed_1) && (!downPressed_2) && (!downPressed_3)) {
+    Keyboard.release("w");
+  }
+  else if (pad_2_Fall) {
     else if ((downPressed_0) || (downPressed_1) || (downPressed_2) || (downPressed_3)) {
       Keyboard.press("w");
     }
   }
-  if (pad_3_Fall) {
+  if ((!rightPressed_0) && (!rightPressed_1) && (!rightPressed_2) && (!rightPressed_3)) {
+    Keyboard.release("w");
+  }
+  else if (pad_3_Fall) {
     else if ((rightPressed_0) || (rightPressed_1) || (rightPressed_2) || (rightPressed_3)) {
       Keyboard.press("w");
     }
   }
-
+  
   pad_0_Fall = false;
   pad_1_Fall = false;
   pad_2_Fall = false;
