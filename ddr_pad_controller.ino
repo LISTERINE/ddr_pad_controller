@@ -10,6 +10,7 @@
 // Create Bounce objects for each button.  The Bounce object
 // automatically deals with contact chatter or "bounce", and
 // it makes detecting changes very simple.
+/*
 Bounce button0 = Bounce(0, 10);
 Bounce button1 = Bounce(1, 10);  // 10 = 10 ms debounce time
 Bounce button2 = Bounce(2, 10);  // which is appropriate for
@@ -20,68 +21,63 @@ Bounce button6 = Bounce(6, 10);  // to rapid touch, you can
 Bounce button7 = Bounce(7, 10);  // increase this time.
 Bounce button8 = Bounce(8, 10);
 Bounce button9 = Bounce(9, 10);
-Bounce button9 = Bounce(10, 10);
-Bounce button9 = Bounce(11, 10);
-Bounce button9 = Bounce(12, 10);
-Bounce button9 = Bounce(13, 10);
-Bounce button9 = Bounce(14, 10);
-Bounce button9 = Bounce(15, 10);
+Bounce button10 = Bounce(10, 10);
+Bounce button11 = Bounce(11, 10);
+Bounce button12 = Bounce(12, 10);
+Bounce button13 = Bounce(13, 10);
+Bounce button14 = Bounce(14, 10);
+Bounce button15 = Bounce(15, 10);
+*/
 
-void setup() {
-  // Configure the pins for input mode with pullup resistors.
-  // The pushbuttons connect from each pin to ground.  When
-  // the button is pressed, the pin reads LOW because the button
-  // shorts it to ground.  When released, the pin reads HIGH
-  // because the pullup resistor connects to +5 volts inside
-  // the chip.  LOW for "on", and HIGH for "off" may seem
-  // backwards, but using the on-chip pullleft resistors is very
-  // convenient.  The scheme is called "active low", and it's
-  // very commonly used in electronics... so much that the chip
-  // has built-in pullup resistors!
-  pinMode(0, INPUT_PULLUP);
-  pinMode(1, INPUT_PULLUP);
-  pinMode(2, INPUT_PULLUP);
-  pinMode(3, INPUT_PULLUP);
-  pinMode(4, INPUT_PULLUP);
-  pinMode(5, INPUT_PULLUP);
-  pinMode(6, INPUT_PULLUP);  // Teensy++ LED, may need 1k resistor pullup
-  pinMode(7, INPUT_PULLUP);
-  pinMode(8, INPUT_PULLUP);
-  pinMode(9, INPUT_PULLUP);
-  pinMode(10, INPUT_PULLUP);
-  pinMode(11, INPUT_PULLUP);
-  pinMode(12, INPUT_PULLUP);
-  pinMode(13, INPUT_PULLUP);
-  pinMode(14, INPUT_PULLUP);
-  pinMode(15, INPUT_PULLUP);
+boolean pad_0_Fall = false; // up
+boolean pad_1_Fall = false; // left
+boolean pad_2_Fall = false; // down
+boolean pad_3_Fall = false; //right
 
+boolean rightPressed_0 = false;
   boolean rightPressed_1 = false;
   boolean rightPressed_2 = false;
   boolean rightPressed_3 = false;
-  boolean rightPressed_4 = false;
+  boolean leftPressed_0= false;
   boolean leftPressed_1 = false;
   boolean leftPressed_2 = false;
   boolean leftPressed_3 = false;
-  boolean leftPressed_4 = false;
+  boolean upPressed_0 = false;
   boolean upPressed_1 = false;
   boolean upPressed_2 = false;
   boolean upPressed_3 = false;
-  boolean upPressed_4 = false;
+  boolean downPressed_0 = false;
   boolean downPressed_1 = false;
   boolean downPressed_2 = false;
   boolean downPressed_3 = false;
-  boolean downPressed_4 = false;
+  
 
-  boolean pad_0_Fall = false; // up
-  boolean pad_1_Fall = false; // left
-  boolean pad_2_Fall = false; // down
-  boolean pad_3_Fall = false; //right
+void setup() {
+  pinMode(0, INPUT);
+  pinMode(1, INPUT);
+  pinMode(2, INPUT);
+  pinMode(3, INPUT);
+  pinMode(4, INPUT);
+  pinMode(5, INPUT);
+  pinMode(6, INPUT);  // Teensy++ LED, may need 1k resistor pullup
+  pinMode(7, INPUT);
+  pinMode(8, INPUT);
+  pinMode(9, INPUT);
+  pinMode(10, INPUT);
+  pinMode(11, INPUT);
+  pinMode(12, INPUT);
+  pinMode(13, INPUT);
+  pinMode(14, INPUT);
+  pinMode(15, INPUT);
+
+
 }
 
 void loop() {
   // Update all the buttons.  There should not be any long
   // delays in loop(), so this runs repetitively at a rate
   // faster than the buttons could be pressed and released.
+  /*
   button0.update();
   button1.update();
   button2.update();
@@ -98,7 +94,7 @@ void loop() {
   button13.update();
   button14.update();
   button15.update();
-  
+  */
   /******************************************************
    *
    * Determine which pads/sensors were pressed/released
@@ -108,171 +104,171 @@ void loop() {
    
   // Check pad 0
   if ((!upPressed_0) || (!upPressed_1) || (!upPressed_2) || (!upPressed_3)) { // If no buttons(sensors) are pressed
-    if (button0.fallingEdge()) {                                              // Check if button was pressed, if it was, set this button and this pad as pressed
+    if (digitalRead(0) == HIGH) {                                              // Check if button was pressed, if it was, set this button and this pad as pressed
       upPressed_0 = true;
       pad_0_Fall = true;
     }
-    if (button1.fallingEdge()) {
+    if (digitalRead(1) == HIGH) {
       upPressed_1 = true;
       pad_0_Fall = true;
     }
-    if (button2.fallingEdge()) {
+    if (digitalRead(2) == HIGH) {
       upPressed_2 = true;
       pad_0_Fall = true;
     }
-    if (button3.fallingEdge()) {
+    if (digitalRead(3) == HIGH) {
       upPressed_3 = true;
       pad_0_Fall = true;
     }
   }
   else {                                                                       // If there are pressed buttons, check if any have come up
-    if (button0.risingEdge()) {                                          
+    if (digitalRead(0) == LOW) {                                          
       upPressed_0 = false;
     }
-    if (button1.risingEdge()) {
+    if (digitalRead(1) == LOW) {
       upPressed_1 = false;
     }
-    if (button2.risingEdge()) {
+    if (digitalRead(2) == LOW) {
       upPressed_2 = false;
     }
-    if (button3.risingEdge()) {
+    if (digitalRead(3) == LOW) {
       upPressed_3 = false;
     }
   }
 
   // Check pad 1
   if ((!leftPressed_0) || (!leftPressed_1) || (!leftPressed_2) || (!leftPressed_3)) {
-    if (button4.fallingEdge()) {
+    if (digitalRead(4) == HIGH) {
       leftPressed_0 = true;
       pad_1_Fall = true;
     }
-    if (button5.fallingEdge()) {
+    if (digitalRead(5) == HIGH) {
       leftPressed_1 = true;
       pad_1_Fall = true;
     }
-    if (button6.fallingEdge()) {
+    if (digitalRead(6) == HIGH) {
       leftPressed_2 = true;
       pad_1_Fall = true;
     }
-    if (button7.fallingEdge()) {
+    if (digitalRead(7) == HIGH) {
       leftPressed_3 = true;
       pad_1_Fall = true;
     } 
   }
   else {
-    if (button4.risingEdge()) {
+    if (digitalRead(4) == LOW) {
       leftPressed_0 = false;
     }
-    if (button5.risingEdge()) {
+    if (digitalRead(5) == LOW) {
       leftPressed_1 = false;
     }
-    if (button6.risingEdge()) {
+    if (digitalRead(6) == LOW) {
       leftPressed_2 = false;
     }
-    if (button7.risingEdge()) {
+    if (digitalRead(7) == LOW) {
       leftPressed_3 = false;
     }
   }
 
   // Check pad 2
   if ((!downPressed_0) || (!downPressed_1) || (!downPressed_2) || (!downPressed_3)) {
-    if (button8.fallingEdge()) {
+    if (digitalRead(8) == HIGH) {
       downPressed_0 = true;
       pad_2_Fall = true;
     }
-    if (button9.fallingEdge()) {
+    if (digitalRead(9) == HIGH) {
       downPressed_1 = true;
       pad_2_Fall = true;
     }
-    if (button10.fallingEdge()) {
+    if (digitalRead(10) == HIGH) {
       downPressed_2 = true;
       pad_2_Fall = true;
     }
-    if (button11.fallingEdge()) {
+    if (digitalRead(11) == HIGH) {
       downPressed_3 = true;
       pad_2_Fall = true;
     }
   }
   else {
-    if (button8.risingEdge()) {
+    if (digitalRead(8) == LOW) {
       downPressed_0 = false;
     }
-    if (button9.risingEdge()) {
+    if (digitalRead(9) == LOW) {
       downPressed_1 = false;
     }
-    if (button10.risingEdge()) {
+    if (digitalRead(10) == LOW) {
       downPressed_2 = false;
     }
-    if (button11.risingEdge()) {
+    if (digitalRead(11) == LOW) {
       downPressed_3 = false;
     }
   }
 
   // Check pad 3
   if ((!rightPressed_0) || (!rightPressed_1) || (!rightPressed_2) || (!rightPressed_3)) {
-    if (button12.fallingEdge()) {
+    if (digitalRead(12) == HIGH) {
       rightPressed_0 = true;
       pad_3_Fall = true;
     }
-    if (button13.fallingEdge()) {
+    if (digitalRead(13) == HIGH) {
       rightPressed_1 = true;
       pad_3_Fall = true;
     }
-    if (button14.fallingEdge()) {
+    if (digitalRead(14) == HIGH) {
       rightPressed_2 = true;
       pad_3_Fall = true;
     }
-    if (button15.fallingEdge()) {
+    if (digitalRead(15) == HIGH) {
       rightPressed_3 = true;
       pad_3_Fall = true;
     }
   }
   else {
-    if (button12.risingEdge()) {
+    if (digitalRead(12) == LOW) {
       downPressed_0 = false;
     }
-    if (button13.risingEdge()) {
+    if (digitalRead(13) == LOW) {
       downPressed_1 = false;
     }
-    if (button14.risingEdge()) {
+    if (digitalRead(14) == LOW) {
       downPressed_2 = false;
     }
-    if (button15.risingEdge()) {
+    if (digitalRead(15) == LOW) {
       downPressed_3 = false;
     }
   }
 
   // If no sensors are pressed
   if ((!upPressed_0) && (!upPressed_1) && (!upPressed_2) && (!upPressed_3)) {
-    Keyboard.release("w");
+    Keyboard.release('w');
   }
   else if (pad_0_Fall) { // if there was a state change in the pad
     if ((upPressed_0) || (upPressed_1) || (upPressed_2) || (upPressed_3)) {
-      Keyboard.press("w");
+      Keyboard.press('w');
     }
   }
   if ((!leftPressed_0) && (!leftPressed_1) && (!leftPressed_2) && (!leftPressed_3)) {
-    Keyboard.release("w");
+    Keyboard.release('a');
   }
   else if (pad_1_Fall) {
-    else if ((leftPressed_0) || (leftPressed_1) || (leftPressed_2) || (leftPressed_3)) {
-      Keyboard.press("w");
+    if ((leftPressed_0) || (leftPressed_1) || (leftPressed_2) || (leftPressed_3)) {
+      Keyboard.press('a');
     }
   }
   if ((!downPressed_0) && (!downPressed_1) && (!downPressed_2) && (!downPressed_3)) {
-    Keyboard.release("w");
+    Keyboard.release('s');
   }
   else if (pad_2_Fall) {
-    else if ((downPressed_0) || (downPressed_1) || (downPressed_2) || (downPressed_3)) {
-      Keyboard.press("w");
+    if ((downPressed_0) || (downPressed_1) || (downPressed_2) || (downPressed_3)) {
+      Keyboard.press('s');
     }
   }
   if ((!rightPressed_0) && (!rightPressed_1) && (!rightPressed_2) && (!rightPressed_3)) {
-    Keyboard.release("w");
+    Keyboard.release('d');
   }
   else if (pad_3_Fall) {
-    else if ((rightPressed_0) || (rightPressed_1) || (rightPressed_2) || (rightPressed_3)) {
-      Keyboard.press("w");
+    if ((rightPressed_0) || (rightPressed_1) || (rightPressed_2) || (rightPressed_3)) {
+      Keyboard.press('d');
     }
   }
   
